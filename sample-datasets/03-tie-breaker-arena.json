@@ -1,0 +1,53 @@
+{
+  "building": "Mathematical Tie-Breaker Test Arena",
+  "nodes": [
+    {
+      "id": "ORIGIN",
+      "label": "Starting Command Center",
+      "type": "room",
+      "x": 100,
+      "y": 250
+    },
+    {
+      "id": "COR_A",
+      "label": "Corridor Alpha (Branch A)",
+      "type": "junction",
+      "x": 300,
+      "y": 130
+    },
+    {
+      "id": "COR_B",
+      "label": "Corridor Beta (Branch B)",
+      "type": "junction",
+      "x": 300,
+      "y": 370
+    },
+    {
+      "id": "EXIT_A",
+      "label": "Emergency Egress Port A",
+      "type": "exit",
+      "x": 520,
+      "y": 130
+    },
+    {
+      "id": "EXIT_B",
+      "label": "Emergency Egress Port B",
+      "type": "exit",
+      "x": 520,
+      "y": 370
+    }
+  ],
+  "edges": [
+    { "id": "E_1", "from": "ORIGIN", "to": "COR_A", "cost": 5 },
+    { "id": "E_2", "from": "ORIGIN", "to": "COR_B", "cost": 5 },
+    { "id": "E_3", "from": "COR_A", "to": "EXIT_A", "cost": 5 },
+    { "id": "E_4", "from": "COR_B", "to": "EXIT_A", "cost": 5 },
+    { "id": "E_5", "from": "COR_A", "to": "EXIT_B", "cost": 5 },
+    { "id": "E_6", "from": "COR_B", "to": "EXIT_B", "cost": 5 }
+  ],
+  "initial_state": {
+    "blocked_nodes": [],
+    "blocked_edges": [],
+    "closed_exits": []
+  }
+}

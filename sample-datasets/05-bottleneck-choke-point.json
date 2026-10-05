@@ -1,0 +1,24 @@
+{
+  "building": "Subterranean Archive & Secure Bunker",
+  "nodes": [
+    { "id": "VAULT_1", "label": "Deep Vault Chamber 1", "type": "room", "x": 100, "y": 200 },
+    { "id": "TUNNEL_A", "label": "Tunnel Route Alpha", "type": "junction", "x": 280, "y": 120 },
+    { "id": "TUNNEL_B", "label": "Tunnel Route Beta", "type": "junction", "x": 280, "y": 280 },
+    { "id": "AIRLOCK_1", "label": "Primary Blast Airlock", "type": "junction", "x": 460, "y": 120 },
+    { "id": "AIRLOCK_2", "label": "Auxiliary Blast Airlock", "type": "junction", "x": 460, "y": 280 },
+    { "id": "SURFACE_EXIT", "label": "Surface Blast Hatch", "type": "exit", "x": 640, "y": 200 }
+  ],
+  "edges": [
+    { "id": "T1", "from": "VAULT_1", "to": "TUNNEL_A", "cost": 4 },
+    { "id": "T2", "from": "VAULT_1", "to": "TUNNEL_B", "cost": 6 },
+    { "id": "T3", "from": "TUNNEL_A", "to": "AIRLOCK_1", "cost": 3 },
+    { "id": "T4", "from": "TUNNEL_B", "to": "AIRLOCK_2", "cost": 3 },
+    { "id": "T5", "from": "AIRLOCK_1", "to": "SURFACE_EXIT", "cost": 5 },
+    { "id": "T6", "from": "AIRLOCK_2", "to": "SURFACE_EXIT", "cost": 4 }
+  ],
+  "initial_state": {
+    "blocked_nodes": ["TUNNEL_A"],
+    "blocked_edges": [],
+    "closed_exits": []
+  }
+}

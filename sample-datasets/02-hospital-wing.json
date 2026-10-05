@@ -1,0 +1,109 @@
+{
+  "building": "Apex Memorial Hospital - Level 2 Care Wing",
+  "nodes": [
+    {
+      "id": "WARD_1",
+      "label": "Pediatric Ward 1",
+      "type": "room",
+      "x": 100,
+      "y": 100
+    },
+    {
+      "id": "WARD_2",
+      "label": "Maternity Ward 2",
+      "type": "room",
+      "x": 100,
+      "y": 280
+    },
+    {
+      "id": "ICU",
+      "label": "Intensive Care Unit",
+      "type": "room",
+      "x": 100,
+      "y": 460
+    },
+    {
+      "id": "J_NORTH",
+      "label": "North Corridor Hub",
+      "type": "junction",
+      "x": 300,
+      "y": 100
+    },
+    {
+      "id": "J_CENTRAL",
+      "label": "Nurses Station Central Hub",
+      "type": "junction",
+      "x": 300,
+      "y": 280
+    },
+    {
+      "id": "J_SOUTH",
+      "label": "South Surgical Crossway",
+      "type": "junction",
+      "x": 300,
+      "y": 460
+    },
+    {
+      "id": "PHARMACY",
+      "label": "Emergency Pharmacy",
+      "type": "room",
+      "x": 500,
+      "y": 100
+    },
+    {
+      "id": "J_EAST",
+      "label": "East Hallway Junction",
+      "type": "junction",
+      "x": 500,
+      "y": 280
+    },
+    {
+      "id": "TRIAGE",
+      "label": "Trauma Triage Room",
+      "type": "room",
+      "x": 500,
+      "y": 460
+    },
+    {
+      "id": "EXIT_NORTH",
+      "label": "Emergency Fire Stair North",
+      "type": "exit",
+      "x": 700,
+      "y": 100
+    },
+    {
+      "id": "EXIT_EAST",
+      "label": "Main East Ramp Exit",
+      "type": "exit",
+      "x": 700,
+      "y": 280
+    },
+    {
+      "id": "EXIT_SOUTH",
+      "label": "Emergency Egress South",
+      "type": "exit",
+      "x": 700,
+      "y": 460
+    }
+  ],
+  "edges": [
+    { "id": "ED_1", "from": "WARD_1", "to": "J_NORTH", "cost": 4 },
+    { "id": "ED_2", "from": "WARD_2", "to": "J_CENTRAL", "cost": 3 },
+    { "id": "ED_3", "from": "ICU", "to": "J_SOUTH", "cost": 3 },
+    { "id": "ED_4", "from": "J_NORTH", "to": "J_CENTRAL", "cost": 5 },
+    { "id": "ED_5", "from": "J_CENTRAL", "to": "J_SOUTH", "cost": 5 },
+    { "id": "ED_6", "from": "J_NORTH", "to": "PHARMACY", "cost": 4 },
+    { "id": "ED_7", "from": "PHARMACY", "to": "EXIT_NORTH", "cost": 2 },
+    { "id": "ED_8", "from": "J_CENTRAL", "to": "J_EAST", "cost": 4 },
+    { "id": "ED_9", "from": "J_EAST", "to": "EXIT_EAST", "cost": 3 },
+    { "id": "ED_10", "from": "J_SOUTH", "to": "TRIAGE", "cost": 4 },
+    { "id": "ED_11", "from": "TRIAGE", "to": "EXIT_SOUTH", "cost": 3 },
+    { "id": "ED_12", "from": "PHARMACY", "to": "J_EAST", "cost": 4 },
+    { "id": "ED_13", "from": "J_EAST", "to": "TRIAGE", "cost": 4 }
+  ],
+  "initial_state": {
+    "blocked_nodes": [],
+    "blocked_edges": ["ED_8"],
+    "closed_exits": []
+  }
+}

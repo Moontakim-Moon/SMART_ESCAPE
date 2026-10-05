@@ -3,7 +3,8 @@ import type { BuildingGraphData } from '../types/graph';
 import type { Language } from '../localization/i18n';
 import { translations } from '../localization/i18n';
 import { parseAndValidateBuildingJSON } from '../services/validation';
-import { Upload, FileCode, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { samplePresets } from '../data/samplePresets';
+import { Upload, FileCode, AlertCircle, CheckCircle2, Download, Sparkles } from 'lucide-react';
 
 interface ImportCardProps {
   onImportSuccess: (data: BuildingGraphData) => void;
@@ -21,6 +22,7 @@ export const ImportCard: React.FC<ImportCardProps> = ({
   const [isDragging, setIsDragging] = useState(false);
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
   const [successNotice, setSuccessNotice] = useState<string | null>(null);
+  const [selectedPresetId, setSelectedPresetId] = useState<string>('');
 
   const processFile = (file: File) => {
     setValidationErrors([]);
@@ -77,8 +79,63 @@ export const ImportCard: React.FC<ImportCardProps> = ({
   const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       processFile(e.target.files[0]);
-      // reset value so the same file can be reselected if edited externally
       e.target.value = '';
+    }
+  };
+
+  // Load a sample preset directly or fetch it
+  const handleLoadPreset = async (presetId: string) => {
+    setSelectedPresetId(presetId);
+    if (!presetId) return;
+
+    const preset = samplePresets.find((p) => p.id === presetId);
+    if (!preset) return;
+
+    if (preset.data) {
+      setValidationErrors([]);
+      setSuccessNotice(`${preset.name}: ${t.importSuccess}`);
+      onImportSuccess(preset.data);
+      setTimeout(() => setSuccessNotice(null), 4000);
+      return;
+    }
+
+    try {
+      const res = await fetch(`/sample-datasets/${preset.filename}`);
+      if (!res.ok) {
+        throw new Error(`HTTP status ${res.status}`);
+      }
+      const rawText = await res.text();
+      const result = parseAndValidateBuildingJSON(rawText);
+      if (!result.isValid || !result.data) {
+        setValidationErrors(result.errors);
+      } else {
+        setValidationErrors([]);
+        setSuccessNotice(`${preset.name}: ${t.importSuccess}`);
+        onImportSuccess(result.data);
+        setTimeout(() => setSuccessNotice(null), 4000);
+      }
+    } catch (err) {
+      setValidationErrors([`Could not fetch sample dataset: ${String(err)}`]);
+    }
+  };
+
+  // Download a preset JSON file to local computer
+  const handleDownloadPreset = async (e: React.MouseEvent, filename: string) => {
+    e.stopPropagation();
+    try {
+      const res = await fetch(`/sample-datasets/${filename}`);
+      const text = await res.text();
+      const blob = new Blob([text], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error('Download failed:', err);
     }
   };
 
@@ -126,6 +183,52 @@ export const ImportCard: React.FC<ImportCardProps> = ({
         >
           {t.browseFiles}
         </button>
+      </div>
+
+      {/* Preset Scenarios Quick Loader */}
+      <div className="preset-selector-box">
+        <div className="preset-header">
+          <Sparkles size={14} className="card-icon" />
+          <span className="preset-label">
+            {lang === 'bn' ? 'নমুনা ডেটাসেটসমূহ' : 'Sample Datasets'}
+          </span>
+        </div>
+        <select
+          className="preset-dropdown"
+          value={selectedPresetId}
+          onChange={(e) => handleLoadPreset(e.target.value)}
+          aria-label="Load preset sample scenario"
+        >
+          <option value="">
+            -- {lang === 'bn' ? 'একটি নমুনা নির্বাচন করুন' : 'Select a Test Dataset'} --
+          </option>
+          {samplePresets.map((preset) => (
+            <option key={preset.id} value={preset.id}>
+              {preset.name}
+            </option>
+          ))}
+        </select>
+
+        {/* Quick download links */}
+        <div className="preset-download-list">
+          <span className="download-hint">
+            {lang === 'bn' ? 'পরীক্ষার জন্য JSON ফাইল ডাউনলোড করুন:' : 'Download JSON to test local import:'}
+          </span>
+          <div className="download-chips">
+            {samplePresets.map((p) => (
+              <button
+                key={p.id}
+                type="button"
+                className="chip-download"
+                onClick={(e) => handleDownloadPreset(e, p.filename)}
+                title={`Download ${p.filename}`}
+              >
+                <Download size={11} />
+                <span>{p.filename}</span>
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* Validation Success Banner */}

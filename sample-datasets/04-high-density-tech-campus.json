@@ -1,0 +1,44 @@
+{
+  "building": "Quantum Science & Robotics Complex",
+  "nodes": [
+    { "id": "R_AI", "label": "AI Research Lab 101", "type": "room", "x": 100, "y": 100 },
+    { "id": "R_ROBO", "label": "Robotics Prototype Bay", "type": "room", "x": 100, "y": 280 },
+    { "id": "R_CYBER", "label": "Cybersecurity Operations", "type": "room", "x": 100, "y": 460 },
+    { "id": "J_WEST_N", "label": "West Junction North", "type": "junction", "x": 260, "y": 100 },
+    { "id": "J_WEST_C", "label": "West Junction Center", "type": "junction", "x": 260, "y": 280 },
+    { "id": "J_WEST_S", "label": "West Junction South", "type": "junction", "x": 260, "y": 460 },
+    { "id": "ATRIUM", "label": "Central Glass Atrium Hub", "type": "junction", "x": 420, "y": 280 },
+    { "id": "J_EAST_N", "label": "East Junction North", "type": "junction", "x": 580, "y": 100 },
+    { "id": "J_EAST_C", "label": "East Junction Center", "type": "junction", "x": 580, "y": 280 },
+    { "id": "J_EAST_S", "label": "East Junction South", "type": "junction", "x": 580, "y": 460 },
+    { "id": "R_QUANTUM", "label": "Quantum Cryogenics Vault", "type": "room", "x": 420, "y": 460 },
+    { "id": "EXIT_NW", "label": "Exit Northwest Gate", "type": "exit", "x": 260, "y": -20 },
+    { "id": "EXIT_NE", "label": "Exit Northeast Gate", "type": "exit", "x": 580, "y": -20 },
+    { "id": "EXIT_EAST", "label": "Exit East Plaza", "type": "exit", "x": 740, "y": 280 },
+    { "id": "EXIT_SOUTH", "label": "Exit South Boulevard", "type": "exit", "x": 420, "y": 580 }
+  ],
+  "edges": [
+    { "id": "E_1", "from": "R_AI", "to": "J_WEST_N", "cost": 3 },
+    { "id": "E_2", "from": "R_ROBO", "to": "J_WEST_C", "cost": 2 },
+    { "id": "E_3", "from": "R_CYBER", "to": "J_WEST_S", "cost": 3 },
+    { "id": "E_4", "from": "J_WEST_N", "to": "J_WEST_C", "cost": 4 },
+    { "id": "E_5", "from": "J_WEST_C", "to": "J_WEST_S", "cost": 4 },
+    { "id": "E_6", "from": "J_WEST_N", "to": "EXIT_NW", "cost": 3 },
+    { "id": "E_7", "from": "J_WEST_N", "to": "J_EAST_N", "cost": 6 },
+    { "id": "E_8", "from": "J_WEST_C", "to": "ATRIUM", "cost": 3 },
+    { "id": "E_9", "from": "ATRIUM", "to": "J_EAST_C", "cost": 3 },
+    { "id": "E_10", "from": "J_WEST_S", "to": "R_QUANTUM", "cost": 4 },
+    { "id": "E_11", "from": "R_QUANTUM", "to": "EXIT_SOUTH", "cost": 3 },
+    { "id": "E_12", "from": "R_QUANTUM", "to": "J_EAST_S", "cost": 4 },
+    { "id": "E_13", "from": "J_EAST_N", "to": "EXIT_NE", "cost": 2 },
+    { "id": "E_14", "from": "J_EAST_N", "to": "J_EAST_C", "cost": 4 },
+    { "id": "E_15", "from": "J_EAST_C", "to": "J_EAST_S", "cost": 4 },
+    { "id": "E_16", "from": "J_EAST_C", "to": "EXIT_EAST", "cost": 3 },
+    { "id": "E_17", "from": "ATRIUM", "to": "R_QUANTUM", "cost": 5 }
+  ],
+  "initial_state": {
+    "blocked_nodes": [],
+    "blocked_edges": [],
+    "closed_exits": []
+  }
+}

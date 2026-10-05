@@ -1,0 +1,110 @@
+{
+  "building": "AI DevFest Innovation Hall",
+  "nodes": [
+    {
+      "id": "R1",
+      "label": "Room 1 (North Lab)",
+      "type": "room",
+      "x": 120,
+      "y": 120
+    },
+    {
+      "id": "R2",
+      "label": "Room 2 (South Studio)",
+      "type": "room",
+      "x": 120,
+      "y": 360
+    },
+    {
+      "id": "C1",
+      "label": "Corridor Junction 1",
+      "type": "junction",
+      "x": 300,
+      "y": 120
+    },
+    {
+      "id": "C2",
+      "label": "Corridor Junction 2",
+      "type": "junction",
+      "x": 480,
+      "y": 120
+    },
+    {
+      "id": "C3",
+      "label": "Corridor Junction 3",
+      "type": "junction",
+      "x": 300,
+      "y": 360
+    },
+    {
+      "id": "C4",
+      "label": "Corridor Junction 4",
+      "type": "junction",
+      "x": 480,
+      "y": 360
+    },
+    {
+      "id": "E1",
+      "label": "Emergency Exit 1 (North Wing)",
+      "type": "exit",
+      "x": 660,
+      "y": 120
+    },
+    {
+      "id": "E2",
+      "label": "Emergency Exit 2 (South Wing)",
+      "type": "exit",
+      "x": 660,
+      "y": 360
+    }
+  ],
+  "edges": [
+    {
+      "id": "E1",
+      "from": "R1",
+      "to": "C1",
+      "cost": 3
+    },
+    {
+      "id": "E2",
+      "from": "C1",
+      "to": "C2",
+      "cost": 2
+    },
+    {
+      "id": "E3",
+      "from": "C2",
+      "to": "E1",
+      "cost": 2
+    },
+    {
+      "id": "E4",
+      "from": "C1",
+      "to": "C3",
+      "cost": 3
+    },
+    {
+      "id": "E5",
+      "from": "C3",
+      "to": "C4",
+      "cost": 3
+    },
+    {
+      "id": "E6",
+      "from": "C4",
+      "to": "E2",
+      "cost": 2
+    },
+    {
+      "id": "E7",
+      "from": "R2",
+      "to": "C3",
+      "cost": 2
+    }
+  ],
+  "initial_state": {
+    "blocked_nodes": [],
+    "blocked_edges": [],
+    "closed_exits": []
+  }
+}

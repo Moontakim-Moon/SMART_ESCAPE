@@ -1,0 +1,19 @@
+{
+  "building": "",
+  "nodes": [
+    { "id": "ROOM_A", "label": "Valid Room", "type": "room", "x": 100, "y": 100 },
+    { "id": "ROOM_A", "label": "Duplicate ID Room", "type": "room", "x": 200, "y": 200 },
+    { "id": "EXIT_1", "label": "Main Exit", "type": "exit", "x": 300, "y": 300 },
+    { "id": "INVALID_TYPE_NODE", "label": "Bad Type", "type": "corridor_space", "x": 400, "y": 400 }
+  ],
+  "edges": [
+    { "id": "E_1", "from": "ROOM_A", "to": "EXIT_1", "cost": -5 },
+    { "id": "E_SELF", "from": "ROOM_A", "to": "ROOM_A", "cost": 3 },
+    { "id": "E_MISSING", "from": "ROOM_A", "to": "GHOST_NODE", "cost": 4 }
+  ],
+  "initial_state": {
+    "blocked_nodes": ["EXIT_1"],
+    "blocked_edges": ["NON_EXISTENT_EDGE"],
+    "closed_exits": ["ROOM_A"]
+  }
+}
